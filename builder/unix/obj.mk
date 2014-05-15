@@ -29,6 +29,11 @@
 #
 ifndef $(TARGET)_SRCS
 $(TARGET)_SRCS := $(wildcard $($(TARGET)_SUBDIR)/*.c)
+$(TARGET)_CPP_SRCS := $(wildcard $($(TARGET)_SUBDIR)/*.cpp)
+ifneq (,$($(TARGET)_CPP_SRCS))
+CPP_FILES_PRESENT = 1
+$(TARGET)_SRCS += $($(TARGET)_CPP_SRCS)
+endif
 endif
 
 $(TARGET)_LSRCS := $(notdir $($(TARGET)_SRCS))

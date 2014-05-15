@@ -33,6 +33,10 @@ ifndef GCC
 GCC := gcc
 endif
 
+ifndef GXX
+GXX := g++
+endif
+
 CINFO="["
 
 ifdef CCACHE
@@ -101,6 +105,7 @@ endif
 
 ifdef PEDANTIC
 GCC_PEDANTIC_FLAGS += -std=c99 -pedantic-errors -Wextra
+GXX_PEDANTIC_FLAGS += -std=c++98 -pedantic-errors -Wextra
 endif
 
 # Rule to build object files from c files for this target.
@@ -108,6 +113,11 @@ endif
 $(OBJECT_DIR)/$($(TARGET)_SUBDIR)/%.o: $($(TARGET)_SUBDIR)/%.c
 	@echo "    Compiling$(CINFO): $(TARGET)::$(notdir $<)"
 	$(VERBOSE) $(CCACHE) $(GCC) $(DEBUG_FLAGS) $(COVERAGE_FLAGS) $(ANALYZE_FLAGS) -I. $($(TARGET)_INCLUDES) $($(TARGET)_CFLAGS) $(GLOBAL_INCLUDES) $(GLOBAL_CFLAGS) $(GCC_PEDANTIC_FLAGS) $(GCC_FLAGS) $(GCC_WARNING_FLAGS) -MD -c $< -o $@
+
+# As above (including dependencies) for C++ files
+$(OBJECT_DIR)/$($(TARGET)_SUBDIR)/%.o: $($(TARGET)_SUBDIR)/%.cpp
+	@echo "    Compiling$(CINFO): $(TARGET)::$(notdir $<) ($(GXX))"
+	$(VERBOSE) $(CCACHE) $(GXX) $(DEBUG_FLAGS) $(COVERAGE_FLAGS) $(ANALYZE_FLAGS) -I. $($(TARGET)_INCLUDES) $($(TARGET)_CFLAGS) $(GLOBAL_INCLUDES) $(GLOBAL_CFLAGS) $(GXX_PEDANTIC_FLAGS) $(GCC_FLAGS) $(GCC_WARNING_FLAGS) -MD -c $< -o $@
 
 # Dependecies Files for these targets
 $(TARGET)_DEPS := $($(TARGET)_OBJS:%.o=%.d)
