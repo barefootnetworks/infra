@@ -29,7 +29,9 @@
 #
 ifndef $(TARGET)_SRCS
 $(TARGET)_SRCS := $(wildcard $($(TARGET)_SUBDIR)/*.c)
+# NOTE:  CPP_SRCS includes both cpp and cc files
 $(TARGET)_CPP_SRCS := $(wildcard $($(TARGET)_SUBDIR)/*.cpp)
+$(TARGET)_CPP_SRCS += $(wildcard $($(TARGET)_SUBDIR)/*.cc)
 ifneq (,$($(TARGET)_CPP_SRCS))
 CPP_FILES_PRESENT = 1
 $(TARGET)_SRCS += $($(TARGET)_CPP_SRCS)

@@ -119,6 +119,11 @@ $(OBJECT_DIR)/$($(TARGET)_SUBDIR)/%.o: $($(TARGET)_SUBDIR)/%.cpp
 	@echo "    Compiling$(CINFO): $(TARGET)::$(notdir $<) ($(GXX))"
 	$(VERBOSE) $(CCACHE) $(GXX) $(DEBUG_FLAGS) $(COVERAGE_FLAGS) $(ANALYZE_FLAGS) -I. $($(TARGET)_INCLUDES) $($(TARGET)_CFLAGS) $(GLOBAL_INCLUDES) $(GLOBAL_CFLAGS) $(GXX_PEDANTIC_FLAGS) $(GCC_FLAGS) $(GCC_WARNING_FLAGS) -MD -c $< -o $@
 
+# and for the CC extension.
+$(OBJECT_DIR)/$($(TARGET)_SUBDIR)/%.o: $($(TARGET)_SUBDIR)/%.cc
+	@echo "    Compiling$(CINFO): $(TARGET)::$(notdir $<) ($(GXX))"
+	$(VERBOSE) $(CCACHE) $(GXX) $(DEBUG_FLAGS) $(COVERAGE_FLAGS) $(ANALYZE_FLAGS) -I. $($(TARGET)_INCLUDES) $($(TARGET)_CFLAGS) $(GLOBAL_INCLUDES) $(GLOBAL_CFLAGS) $(GXX_PEDANTIC_FLAGS) $(GCC_FLAGS) $(GCC_WARNING_FLAGS) -MD -c $< -o $@
+
 # Dependecies Files for these targets
 $(TARGET)_DEPS := $($(TARGET)_OBJS:%.o=%.d)
 
