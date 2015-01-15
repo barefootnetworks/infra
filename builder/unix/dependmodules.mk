@@ -62,7 +62,7 @@ include $(MODULEMANIFEST)
 DEPEND_MODULES_MK := $(foreach mod,$(DEPENDMODULES),$(shell test -f $($(mod)_BASEDIR)/$(mod).mk || $(BUILDER)/tools/modulemakes.py --name $(mod) --root=$($(mod)_BASEDIR)))
 
 # Include all $(MODULE).mk in DEPENDMODULES
-include $(foreach mod,$(DEPENDMODULES),$($(mod)_BASEDIR)/$(mod).mk)
+-include $(foreach mod,$(DEPENDMODULES),$($(mod)_BASEDIR)/$(mod).mk)
 
 #
 # Add all $(MODULE)_INCLUDES to $GLOBAL_INCLUDES.
