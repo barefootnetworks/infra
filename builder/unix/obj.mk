@@ -44,6 +44,9 @@ $(TARGET)_OBJS := $(addprefix $(OBJECT_DIR)/$($(TARGET)_SUBDIR)/, $($(TARGET)_LO
 
 ALL_TARGETS := $(ALL_TARGETS) $(TARGET)
 
+ifdef COVERAGE
+GLOBAL_CFLAGS := -DCOVERAGE
+endif
 #
 # Rule to build object and dependency files.
 # This is provided directly by the toolchain definition.
